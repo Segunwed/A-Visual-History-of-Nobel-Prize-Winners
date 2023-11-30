@@ -20,3 +20,25 @@ display(nobel['sex'].value_counts())
 
 # Display the number of prizes won by the top 10 nationalities.
 nobel['birth_country'].value_counts().head(10)
+# step3 create a data frame with two column decade and USA-born Nobel Prize winner
+# Calculating the proportion of USA born winners per decade
+nobel['usa_born_winner'] = nobel['birth_country'] == 'United States of America'
+nobel['decade'] = (np.floor(nobel['year'] / 10) * 10).astype(int)
+prop_usa_winners = nobel.groupby('decade', as_index=False)['usa_born_winner'].mean()
+
+# Display the proportions of USA born winners per decade
+prop_usa_winners
+# Step4 plot the proportion of USA born winner per decade 
+# Setting the plotting theme
+sns.set()
+# and setting the size of all plots.
+import matplotlib.pyplot as plt
+plt.rcParams['figure.figsize'] = [11, 7]
+
+# Plotting USA born winners
+ax = sns.lineplot(x='decade', y='usa_born_winner', data=prop_usa_winners)
+
+# Adding %-formatting to the y-axis
+from matplotlib.ticker import PercentFormatter
+ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+# plot the proportion of female laureate by decade slip by prize category
