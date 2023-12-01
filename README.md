@@ -41,4 +41,16 @@ ax = sns.lineplot(x='decade', y='usa_born_winner', data=prop_usa_winners)
 # Adding %-formatting to the y-axis
 from matplotlib.ticker import PercentFormatter
 ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-# plot the proportion of female laureate by decade slip by prize category
+# Step5 plot the proportion of female laureate by decade slip by prize category
+# Calculating the proportion of female laureates per decade
+nobel['female_winner'] = nobel['sex'] == 'Female'
+prop_female_winners = nobel.groupby(['decade', 'category'], as_index=False)['female_winner'].mean()
+
+# Plotting female winners with % winners on the y-axis
+ax = sns.lineplot(x='decade', y='female_winner', hue='category', data=prop_female_winners)
+ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+# Step6 Extract and Display the row showing the first woman to win a nobel prize
+# Picking out the first woman to win a Nobel Prize
+nobel[nobel.sex == 'Female'].nsmallest(1, 'year')
+# Step7 Extract and Display the row of repeat nobel prize winner
+
