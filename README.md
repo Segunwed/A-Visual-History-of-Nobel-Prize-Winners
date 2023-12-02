@@ -70,5 +70,13 @@ sns.lmplot(x='year', y='age', row='category', data=nobel, lowess=True,
            aspect=2, line_kws={'color' : 'black'})
 # step10 plot  
 # Step10 pickout the row of the oldest and the youngest winner of the nobel prize
+# The oldest winner of a Nobel Prize as of 2016
+display(nobel.nlargest(1, 'age'))
+
+# The youngest winner of a Nobel Prize as of 2016
+nobel.nsmallest(1, 'age')
+# Step11 assign the name of the youngest winner of the nobel prize as youngest_winner. the first name would be suffice
+# The name of the youngest winner of a Nobel Prize as of 2016
+youngest_winner = 'Malala Yousafzai'
 
 
