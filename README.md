@@ -53,4 +53,22 @@ ax.yaxis.set_major_formatter(PercentFormatter(1.0))
 # Picking out the first woman to win a Nobel Prize
 nobel[nobel.sex == 'Female'].nsmallest(1, 'year')
 # Step7 Extract and Display the row of repeat nobel prize winner
+nobel.groupby('full_name').filter(lambda group:len(group) >= 2)
+# Step8 Calculate and plot the age of each winner when they won their nobel prize
+# Converting birth_date from String to datetime
+nobel['birth_date'] = pd.to_datetime(nobel['birth_date'])
+
+# Calculating the age of Nobel Prize winners
+nobel['age'] = nobel['year'] - nobel['birth_date'].dt.year
+
+# Plotting the age of Nobel Prize winners
+sns.lmplot(x='year', y='age', data=nobel, lowess=True, 
+           aspect=2, line_kws={'color' : 'black'})
+# Step9 plot how old, winners are within the different prize categories
+# Same plot as above, but separate plots for each type of Nobel Prize
+sns.lmplot(x='year', y='age', row='category', data=nobel, lowess=True, 
+           aspect=2, line_kws={'color' : 'black'})
+# step10 plot  
+# Step10 pickout the row of the oldest and the youngest winner of the nobel prize
+
 
